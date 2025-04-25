@@ -10,7 +10,8 @@ app.get('/api/message', (req, res) => {
 
 app.get('/api/users/:id', (req, res) => {
   const userId = req.params.id;
-  const userData = findUserById(userId);
+  const parsedId = parseInt(userId);
+  const userData = findUserById(parsedId);
   
   if (!userData) {
     return res.status(404).json({ error: 'User not found' });
@@ -61,11 +62,13 @@ function findUserById(id) {
 }
 
 function createTask(title, description, dueDate) {
+  const parsedDate = new Date(dueDate + "T00:00:00");
+  
   return {
     id: Math.floor(Math.random() * 10000),
     title,
     description,
-    dueDate,
+    dueDate: parsedDate.toISOString(),
     createdAt: new Date().toISOString()
   };
 }

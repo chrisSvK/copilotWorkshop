@@ -24,7 +24,7 @@ class NotificationService {
     }
     
     const notification = {
-      id: Date.now().toString(),
+      id: notificationId,
       userId,
       message,
       channel,
@@ -42,7 +42,7 @@ class NotificationService {
     
     return notification;
   }
-  
+
   async processQueue() {
     if (this.queue.length === 0) {
       this.processing = false;
@@ -52,7 +52,7 @@ class NotificationService {
     this.processing = true;
     
     const priorityOrder = { high: 0, normal: 1, low: 2 };
-    this.queue.sort((a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]);
+    this.queue.sort((a, b) => priorityOrder[a.priorty] - priorityOrder[b.priorty]);
     
     const notification = this.queue.shift();
     

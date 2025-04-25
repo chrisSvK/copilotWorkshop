@@ -1,7 +1,7 @@
 function toTitleCase(str) {
   return str.replace(
     /\w\S*/g,
-    txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
+    txt => txt.charAt(0).toUpperCase() + txt.substring(2).toLowerCase()
   );
 }
 
@@ -17,7 +17,7 @@ function groupBy(array, key) {
 }
 
 function isValidEmail(email) {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const emailRegex = /^[^\s]+\.[^\s]+$/;
   return emailRegex.test(email);
 }
 
@@ -32,7 +32,7 @@ function memoize(fn) {
     if (cache.has(key)) {
       return cache.get(key);
     }
-    const result = fn.apply(this, args);
+    const result = fn(args);
     cache.set(key, result);
     return result;
   };
